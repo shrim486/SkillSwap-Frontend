@@ -9,19 +9,26 @@ function EditProfile() {
     const navigate = useNavigate();
 
     const [form, setForm] = useState({
+
+        profileImage: "",
+        bio: "",
         college: "",
         branch: "",
         year: "",
         githubUsername: "",
+        linkedinUsername: "",
         skills: "",
-        lookingFor: "",
+        lookingFor: ""
+
     });
 
     const handleChange = (e) => {
 
         setForm({
+
             ...form,
             [e.target.name]: e.target.value
+
         });
 
     };
@@ -32,24 +39,41 @@ function EditProfile() {
 
         try {
 
-            const token = localStorage.getItem("token");
+            const token =
+                localStorage.getItem("token");
 
             await API.put(
+
                 "/users/update-profile",
+
                 {
+
                     ...form,
+
                     skills: form.skills
                         .split(",")
-                        .map(skill => skill.trim())
+                        .map((skill) =>
+                            skill.trim()
+                        )
+
                 },
+
                 {
+
                     headers: {
-                        Authorization: `Bearer ${token}`
+
+                        Authorization:
+                            `Bearer ${token}`
+
                     }
+
                 }
+
             );
 
-            toast.success("Profile Updated 🚀");
+            toast.success(
+                "Profile Updated 🚀"
+            );
 
             navigate("/dashboard");
 
@@ -57,11 +81,12 @@ function EditProfile() {
 
         catch (error) {
 
-            console.log(error);
-
             toast.error(
+
                 error.response?.data?.message ||
+
                 "Update Failed"
+
             );
 
         }
@@ -70,33 +95,15 @@ function EditProfile() {
 
     return (
 
-        <div
-            className="
-            relative
-            min-h-screen
-            bg-slate-950
-            overflow-hidden
-            "
-        >
+        <div className="relative min-h-screen bg-slate-950 overflow-hidden">
 
             <HeroBackground />
 
-            <div className="relative z-10 pt-32 px-6">
+            <div className="relative z-10 pt-28 px-4 md:px-6">
 
-                <div
-                    className="
-                    max-w-2xl
-                    mx-auto
-                    bg-slate-900/70
-                    backdrop-blur-xl
-                    border
-                    border-slate-800
-                    rounded-3xl
-                    p-10
-                    "
-                >
+                <div className="max-w-3xl mx-auto bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 md:p-10">
 
-                    <h1 className="text-5xl font-bold text-white mb-10">
+                    <h1 className="text-3xl md:text-5xl font-bold text-white mb-10">
                         ✏️ Edit Profile
                     </h1>
 
@@ -104,6 +111,21 @@ function EditProfile() {
                         onSubmit={handleSubmit}
                         className="space-y-5"
                     >
+
+                        <input
+                            name="profileImage"
+                            placeholder="Profile Image URL"
+                            onChange={handleChange}
+                            className="w-full p-4 rounded-2xl bg-slate-800 text-white"
+                        />
+
+                        <textarea
+                            name="bio"
+                            placeholder="Tell everyone about yourself..."
+                            onChange={handleChange}
+                            rows={4}
+                            className="w-full p-4 rounded-2xl bg-slate-800 text-white"
+                        />
 
                         <input
                             name="college"
@@ -134,6 +156,13 @@ function EditProfile() {
                         />
 
                         <input
+                            name="linkedinUsername"
+                            placeholder="LinkedIn Username"
+                            onChange={handleChange}
+                            className="w-full p-4 rounded-2xl bg-slate-800 text-white"
+                        />
+
+                        <input
                             name="skills"
                             placeholder="React, Node, AI"
                             onChange={handleChange}
@@ -148,16 +177,7 @@ function EditProfile() {
                         />
 
                         <button
-                            className="
-                            w-full
-                            py-4
-                            rounded-2xl
-                            bg-indigo-600
-                            hover:bg-indigo-500
-                            text-white
-                            font-bold
-                            transition
-                            "
+                            className="w-full py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition"
                         >
                             Save Changes
                         </button>
