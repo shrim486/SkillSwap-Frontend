@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://skillswap-backend-k3ao.onrender.com/api",
+  baseURL: "https://skillswap-backend-k3ao.onrender.com/api",
 });
 
 API.interceptors.request.use((req) => {
