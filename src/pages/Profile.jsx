@@ -380,7 +380,70 @@ function Profile() {
                                                     {project.title}
 
                                                 </h3>
+<div className="flex gap-3 mt-4 flex-wrap">
 
+    {
+
+        project.githubLink && (
+
+            <a
+
+                href={project.githubLink}
+
+                target="_blank"
+
+                rel="noreferrer"
+
+                className="
+                bg-slate-700
+                px-4
+                py-2
+                rounded-xl
+                text-white
+                "
+
+            >
+
+                🐙 GitHub
+
+            </a>
+
+        )
+
+    }
+
+
+    {
+
+        project.liveLink && (
+
+            <a
+
+                href={project.liveLink}
+
+                target="_blank"
+
+                rel="noreferrer"
+
+                className="
+                bg-green-600
+                px-4
+                py-2
+                rounded-xl
+                text-white
+                "
+
+            >
+
+                🚀 Live Demo
+
+            </a>
+
+        )
+
+    }
+
+</div>
                                                 <p className="text-slate-400 mt-3">
 
                                                     {project.description}

@@ -3,20 +3,21 @@ import { Link } from "react-router-dom";
 
 import API from "../services/api";
 import HeroBackground from "../components/HeroBackground";
-import {
-    getUnreadCount
-}
-from "../utils/unreadMessages";
+import { getUnreadCount } from "../utils/unreadMessages";
+
 function MyChats() {
 
     const [chats, setChats] = useState([]);
-const[unreadCout,setUnreadCount]=useState(0);
+    const [unreadCount, setUnreadCount] = useState(0);
+
     useEffect(() => {
 
         fetchChats();
-setUnreadCount(
-    getUnreadCount()
-);
+
+        setUnreadCount(
+            getUnreadCount()
+        );
+
     }, []);
 
     const fetchChats = async () => {
@@ -33,7 +34,7 @@ setUnreadCount(
                 {
                     headers: {
                         Authorization:
-                        `Bearer ${token}`
+                            `Bearer ${token}`
                     }
                 }
 
@@ -53,50 +54,46 @@ setUnreadCount(
 
     return (
 
-        <div
-            className="
-            relative
-            min-h-screen
-            bg-slate-950
-            overflow-hidden
-            "
-        >
+        <div className="relative min-h-screen bg-slate-950 overflow-hidden">
 
             <HeroBackground />
 
-            <div
-                className="
-                relative
-                z-10
-                max-w-5xl
-                mx-auto
-                pt-32
-                px-6
-                "
-            >
+            <div className="relative z-10 max-w-6xl mx-auto pt-28 px-4 md:px-6">
 
-                <h1
-                    className="
-                    text-5xl
-                    text-white
-                    font-bold
-                    mb-12
-                    "
-                >
-                    💬 My Chats
-                </h1>
+                <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-10">
+
+                    <h1 className="text-4xl md:text-5xl text-white font-bold">
+
+                        💬 My Chats
+
+                    </h1>
+
+                    <div className="mt-4 md:mt-0 bg-indigo-600 px-5 py-3 rounded-2xl text-white">
+
+                        Unread: {unreadCount}
+
+                    </div>
+
+                </div>
+
 
                 {
 
                     chats.length === 0 ? (
 
-                        <p className="text-slate-400">
-                            No chats yet.
-                        </p>
+                        <div className="bg-slate-900/70 border border-slate-800 rounded-3xl p-10 text-center">
+
+                            <p className="text-slate-400 text-lg">
+
+                                No chats yet. Start collaborating 🚀
+
+                            </p>
+
+                        </div>
 
                     ) : (
 
-                        <div className="space-y-6">
+                        <div className="grid md:grid-cols-2 gap-6">
 
                             {
 
@@ -110,41 +107,51 @@ setUnreadCount(
                                         bg-slate-900/70
                                         border
                                         border-slate-800
-                                        p-8
+                                        p-6
                                         rounded-3xl
+                                        hover:border-indigo-500
+                                        transition
                                         "
 
                                     >
 
-                                        <h2
-                                            className="
-                                            text-3xl
-                                            text-white
-                                            font-bold
-                                            "
-                                        >
-                                            👨‍💻 {chat.name}
-                                        </h2>
+                                        <div className="flex items-center gap-4">
 
-                                        <p
-                                            className="
-                                            text-indigo-400
-                                            mt-3
-                                            "
-                                        >
-                                            🚀 {chat.projectIdea}
-                                        </p>
+                                            <div className="text-5xl">
+
+                                                👨‍💻
+
+                                            </div>
+
+                                            <div>
+
+                                                <h2 className="text-2xl text-white font-bold">
+
+                                                    {chat.name}
+
+                                                </h2>
+
+                                                <p className="text-indigo-400 mt-1">
+
+                                                    🚀 {chat.projectIdea}
+
+                                                </p>
+
+                                            </div>
+
+                                        </div>
+
 
                                         <Link
 
                                             to={`/chat/${chat.userId}`}
 
                                             className="
-                                            inline-block
+                                            block
+                                            text-center
                                             mt-6
                                             bg-indigo-600
                                             hover:bg-indigo-500
-                                            px-6
                                             py-3
                                             rounded-2xl
                                             text-white

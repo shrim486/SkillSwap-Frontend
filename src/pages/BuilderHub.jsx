@@ -8,7 +8,10 @@ function BuilderHub() {
 
     const [requests, setRequests] = useState([]);
     const [collaborations, setCollaborations] = useState([]);
-
+const [requestCount, setRequestCount] =
+    useState(0);
+    const [unreadCount, setUnreadCount] =
+    useState(0);
     useEffect(() => {
 
         fetchRequests();
@@ -183,7 +186,7 @@ function BuilderHub() {
 
                 <h1
                     className="
-                    text-5xl
+                    text-4xl md:text-5xl
                     text-white
                     font-bold
                     mb-12
@@ -197,7 +200,7 @@ function BuilderHub() {
 
                 <h2
                     className="
-                    text-3xl
+                    text-2xl md:text-3xl
                     text-white
                     font-bold
                     mb-6
@@ -228,7 +231,7 @@ function BuilderHub() {
 
                                         className="
                                         bg-slate-900/70
-                                        p-8
+                                        p-6 md:p-8
                                         rounded-3xl
                                         border
                                         border-slate-800
@@ -238,7 +241,7 @@ function BuilderHub() {
 
                                         <h2
                                             className="
-                                            text-3xl
+                                            text-2xl md:text-3xl
                                             text-white
                                             font-bold
                                             "
@@ -258,7 +261,7 @@ function BuilderHub() {
                                             {req.message}
                                         </p>
 
-                                        <div className="flex gap-4 mt-6">
+                                        <div className="flex flex-col md:flex-row gap-4 mt-6">
 
                                             <button
 
@@ -319,7 +322,7 @@ function BuilderHub() {
 
                 <h2
                     className="
-                    text-3xl
+                    text-2xl md:text-3xl
                     text-white
                     font-bold
                     mb-6
@@ -350,7 +353,7 @@ function BuilderHub() {
 
                                         className="
                                         bg-slate-900/70
-                                        p-8
+                                        p-6 md:p-8
                                         rounded-3xl
                                         border
                                         border-slate-800
@@ -360,7 +363,7 @@ function BuilderHub() {
 
                                         <h3
                                             className="
-                                            text-3xl
+                                            text-2xl md:text-3xl
                                             text-white
                                             font-bold
                                             "

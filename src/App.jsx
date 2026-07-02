@@ -16,6 +16,8 @@ import EditProfile from "./pages/EditProfile";
 import Chat from "./pages/Chat";
 import BuilderHub from "./pages/BuilderHub";
 import MyChats from "./pages/MyChats";
+import Settings from "./pages/Settings";
+import AIMentor from "./pages/AIMentor";
 function App() {
   return (
     <BrowserRouter>
@@ -74,6 +76,11 @@ function App() {
           element={<MyChats />}
         />
 
+        <Route
+          path="/settings"
+          element={<Settings />}
+        />
+<Route path="/ai-mentor" element={<AIMentor />} />
       </Routes>
 
     </BrowserRouter>

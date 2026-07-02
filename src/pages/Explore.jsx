@@ -10,6 +10,7 @@ function Explore() {
     const [search, setSearch] = useState("");
     const [branchFilter, setBranchFilter] = useState("");
     const [yearFilter, setYearFilter] = useState("");
+    const [filteredStudents, setFilteredStudents] = useState([]);
 
     useEffect(() => {
 
@@ -24,6 +25,7 @@ function Explore() {
             const res = await API.get("/users");
 
             setStudents(res.data);
+            setFilteredStudents(res.data);
 
         }
 
@@ -35,6 +37,34 @@ function Explore() {
 
     };
 
+    // Combined filter: search + branch + year all apply together
+    useEffect(() => {
+
+        const filtered = students.filter((student) => {
+
+            const query = search.toLowerCase();
+
+            const matchSearch =
+                student.name?.toLowerCase().includes(query) ||
+                student.branch?.toLowerCase().includes(query) ||
+                student.college?.toLowerCase().includes(query) ||
+                student.skills?.some(
+                    (skill) => skill.toLowerCase().includes(query)
+                );
+
+            const matchBranch =
+                branchFilter === "" || student.branch === branchFilter;
+
+            const matchYear =
+                yearFilter === "" || student.year === yearFilter;
+
+            return matchSearch && matchBranch && matchYear;
+
+        });
+
+        setFilteredStudents(filtered);
+
+    }, [search, branchFilter, yearFilter, students]);
 
     const getBadge = (skills = []) => {
 
@@ -77,38 +107,6 @@ function Explore() {
         return "🚀 Builder";
 
     };
-
-
-    const filteredStudents = students.filter(student => {
-
-        const matchSearch =
-            student.name
-                .toLowerCase()
-                .includes(
-                    search.toLowerCase()
-                );
-
-        const matchBranch =
-            branchFilter === "" ||
-
-            student.branch ===
-            branchFilter;
-
-        const matchYear =
-            yearFilter === "" ||
-
-            student.year ===
-            yearFilter;
-
-        return (
-
-            matchSearch &&
-            matchBranch &&
-            matchYear
-
-        );
-
-    });
 
 
     const branches = [
@@ -180,14 +178,13 @@ function Explore() {
 
                     </motion.h1>
 
-
                     {/* SEARCH + FILTERS */}
 
                     <div className="grid md:grid-cols-3 gap-4 mb-10">
 
                         <input
 
-                            placeholder="Search builders..."
+                            placeholder="Search builders, skills, college..."
 
                             value={search}
 
@@ -204,6 +201,8 @@ function Explore() {
                             text-white
                             border
                             border-slate-800
+                            outline-none
+                            focus:border-indigo-500
                             "
 
                         />
